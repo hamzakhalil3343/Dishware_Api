@@ -1,0 +1,16 @@
+{
+  "name": "dishware_api",
+  "version": "1.0.0",
+  "description": " Backend code of Dishware ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "author": "Hamza Khalil",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
