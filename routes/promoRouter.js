@@ -27,7 +27,7 @@ promoRouter.route('/')
 });
 promoRouter.route('/:promoId')
 .get( (req,res,next) => {
-    res.end('Will send details of the Promotion: ' + req.params.dishId +' to you!');
+    res.end('Will send details of the Promotion: ' + req.params.promoId +' to you!');
 })
 .post( (req, res, next) => {
   res.statusCode = 403;
