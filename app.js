@@ -1,7 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 
@@ -14,15 +13,14 @@ var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var passport = require('passport');
-var authenticate = require('./authenticate');
+var config = require('./config');
+const url = config.mongoUrl;
 const mongoose = require('mongoose');
 
-const Dishes = require('./models/dishes');
 
-const url = 'mongodb://localhost:27017/conFusion';
 const connect = mongoose.connect(url);
 
-connect.then((db) => {
+connect.then(() => {
     console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
 
@@ -50,20 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-function auth (req, res, next) {
-
-if(!req.user) {
-    var err = new Error('You are not authenticated!');
-    err.status = 401;
-    return next(err);
-}
-else {
-  next(err);
-  
-}
-}
-
-app.use(auth);
+;
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -77,7 +62,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
